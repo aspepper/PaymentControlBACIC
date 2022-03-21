@@ -10,13 +10,13 @@ USE `bacic_service_payment`;
 -- CREATE databaae baci_service_payment                                                                                                             
 -- TIMESTAMP DEFAULT CURRENT_TIMESTAMP                        
 
-DROP TABLE IF EXISTS COMPANYTYPES;
-DROP TABLE IF EXISTS PAYMENT_RATE;
-DROP TABLE IF EXISTS PAYMENTS;
-DROP TABLE IF EXISTS COMPANIES;
-DROP TABLE IF EXISTS PAYMENT_OPTIONS;
-DROP TABLE IF EXISTS COMPANYTYPES;
-DROP TABLE IF EXISTS USERS;
+-- DROP TABLE IF EXISTS COMPANYTYPES;
+-- DROP TABLE IF EXISTS PAYMENT_RATE;
+-- DROP TABLE IF EXISTS PAYMENTS;
+-- DROP TABLE IF EXISTS COMPANIES;
+-- DROP TABLE IF EXISTS PAYMENT_OPTIONS;
+-- DROP TABLE IF EXISTS COMPANYTYPES;
+-- DROP TABLE IF EXISTS USERS;
 
 
 CREATE TABLE IF NOT EXISTS ROLES (                                                                                                               
@@ -98,8 +98,8 @@ COLLATE=latin2_general_ci;
 
 
 
-INSERT INTO COMPANYTYPES (`Name`)
-VALUES ('BACIC'),('ADQUIRENTE'),('DISTRIBUIDOR'),('REVENDA'),('CLIENTE');
+INSERT INTO COMPANYTYPES (`Name`,`CreatedUserId`,`ModifiedUserId`)
+VALUES ('BACIC',1,1),('ADQUIRENTE',1,1),('DISTRIBUIDOR',1,1),('REVENDA',1,1),('CLIENTE',1,1);
 
 
 
@@ -120,8 +120,8 @@ CHARSET=latin2
 COLLATE=latin2_general_ci;
 
 
-INSERT INTO COMPANIES (`CompanyTypeId`, `Name`)
-VALUES (1, 'BACIC');
+INSERT INTO COMPANIES (`CompanyTypeId`,`Name`,`CreatedUserId`,`ModifiedUserId`)
+VALUES (1,'BACIC',1,1);
 
 
 
