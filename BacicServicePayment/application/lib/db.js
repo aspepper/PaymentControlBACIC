@@ -1,14 +1,16 @@
-import mysql from 'mysql';
+import Sequelize from 'sequelize';
+import dotenv from 'dotenv/config.js';
 
 class Database {
 
-    constructor(){
-        this.connection = mysql.createConnection({
-            host:'localhost',
-            user:'root',
-            password:'L0g1t3ch@1972',
-            database:'bacic_service_payment'
-        });
+    constructor() {
+
+        const dbName = process.env.DB_NAME; // passar os dados do .env para as constantes
+        const dbUser = process.env.DB_USER;
+        const dbHost = process.env.DB_HOST;
+        const dbPassword = process.env.DB_PASSWORD;
+
+        this.connection = new Sequelize(dbName, dbUser, dbPassword, {dialect: 'mysql', host: dbHost });
 
     }
 }
