@@ -1,15 +1,9 @@
 import app from './lib/app';
-import userDB from './model/User';
-import user from './entities/user';
-import userRepository from './repository/user';
+import homeRouter from './routes/home';
 
-// var rec = new user();
-// rec.password = 'teste';
-// rec.userName = 'alex';
-// rec.name = 'Alexsandro Pimenta';
-// rec.document = '12139836812';
-// userRepository.create(rec);
+app.use("/", homeRouter);
+app.use("/home", homeRouter);
 
-app.listen(3333, function () {
+app.listen(3000, function () {
     console.log('Node app is running on port 3333');
 });
