@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import userModel from '../model/user';
+import userModel from '../models/user';
 import user from '../entities/user';
 
 class UserRepository {
