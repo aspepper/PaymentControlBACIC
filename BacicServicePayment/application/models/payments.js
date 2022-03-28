@@ -1,0 +1,52 @@
+import Sequelize from 'sequelize';
+import Database from '../lib/db';
+
+class Payment{
+
+    constructorModel(){
+        this.payment = Database.define('PAYMENTS', {
+            Id: {
+                type: Sequelize.INTEGER,
+                autoIncrement: true,
+                allowNull: false,
+                primaryKey: true
+            },
+            PaymentOptionId: {
+                type: Sequelize.INTEGER,
+                allowNull: false
+            },
+            CustomerId: {
+                type: Sequelize.INTEGER,
+                allowNull: false
+            },
+            Name: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
+            PaymentFee: {
+                type: Sequelize.DOUBLE,
+                allowNull: false,
+                default: 0
+            },
+            ModifiedDate: {
+                type: Sequelize.DATE,
+                allowNull: false,
+                defaultValue: new Date()
+            },
+            ModifiedUserId: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                defaultValue: 1
+            },
+            IsDeleted: {
+                type: Sequelize.BOOLEAN,
+                allowNull: false,
+                defaultValue: false
+            }
+        },{
+            timestamps: false
+        });
+    }
+
+}
+export default new PaymentModel().payment;

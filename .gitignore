@@ -1,0 +1,16 @@
+.gitignore
+/node_modules
+.o
+.pyc
+/bin
+/out
+/target.class
+.log
+.lock
+.tmp
+.DS_Store
+Thumbs.db
+**/logs
+**/logs/debug.log
+*.log
+.env

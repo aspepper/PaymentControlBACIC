@@ -10,13 +10,13 @@ USE `bacic_service_payment`;
 -- CREATE databaae baci_service_payment                                                                                                             
 -- TIMESTAMP DEFAULT CURRENT_TIMESTAMP                        
 
-DROP TABLE IF EXISTS COMPANYTYPES;
-DROP TABLE IF EXISTS PAYMENT_RATE;
-DROP TABLE IF EXISTS PAYMENTS;
-DROP TABLE IF EXISTS COMPANIES;
-DROP TABLE IF EXISTS PAYMENT_OPTIONS;
-DROP TABLE IF EXISTS COMPANYTYPES;
-DROP TABLE IF EXISTS USERS;
+-- DROP TABLE IF EXISTS COMPANYTYPES;
+-- DROP TABLE IF EXISTS PAYMENT_RATE;
+-- DROP TABLE IF EXISTS PAYMENTS;
+-- DROP TABLE IF EXISTS COMPANIES;
+-- DROP TABLE IF EXISTS PAYMENT_OPTIONS;
+-- DROP TABLE IF EXISTS COMPANYTYPES;
+-- DROP TABLE IF EXISTS USERS;
 
 
 CREATE TABLE IF NOT EXISTS ROLES (                                                                                                               
@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS ROLES (
     `Name`              VARCHAR (50)    NOT NULL,
     `CreatedDate`       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `CreatedUserId`     INT             NOT NULL DEFAULT 0,
-    `Modifiedate`       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `ModifiedDate`      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `ModifiedUserId`    INT             NOT NULL DEFAULT 0,
     `IsDeleted`         BOOL            NOT NULL DEFAULT FALSE,
     CONSTRAINT PRIMARY KEY (`Id`)
@@ -40,12 +40,12 @@ INSERT INTO ROLES(`Name`) VALUES ('Administrator');
 CREATE TABLE IF NOT EXISTS USERS (                                                                                                               
     `Id`                INT             NOT NULL AUTO_INCREMENT,
     `UserName`          VARCHAR (50)    NOT NULL,
-    `Password`          VARCHAR (50)    NOT NULL,
+    `Password`          VARCHAR (255)    NOT NULL,
     `Name`              VARCHAR (100)   NOT NULL,
     `Document`          VARCHAR (14)    NULL, -- CPF / CNPJ
     `CreatedDate`       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `CreatedUserId`     INT             NOT NULL DEFAULT 0,
-    `Modifiedate`       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `ModifiedDate`      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `ModifiedUserId`    INT             NOT NULL DEFAULT 0,
     `IsDeleted`         BOOL            NOT NULL DEFAULT FALSE,
     CONSTRAINT PRIMARY KEY (`Id`)
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS USERROLES (
     `RoleId`            INT             NOT NULL,
     `CreatedDate`       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `CreatedUserId`     INT             NOT NULL DEFAULT 0,
-    `Modifiedate`       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `ModifiedDate`      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `ModifiedUserId`    INT             NOT NULL DEFAULT 0,
     `IsDeleted`         BOOL            NOT NULL DEFAULT FALSE,
     CONSTRAINT PRIMARY KEY (`Id`)
@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS COMPANYTYPES (
     `Name`              VARCHAR (100)   NOT NULL,                                                                                                 
     `CreatedDate`       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,                                                                                                  
     `CreatedUserId`     INT             NOT NULL DEFAULT 0,                                                                                       
-    `Modifiedate`       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,                                                                                             
+    `ModifiedDate`      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,                                                                                             
     `ModifiedUserId`    INT             NOT NULL DEFAULT 0,                                                                                       
     `IsDeleted`         BOOL            NOT NULL DEFAULT FALSE,                                                                                               
     CONSTRAINT PRIMARY KEY (`Id`)                                                                                                                  
@@ -98,8 +98,8 @@ COLLATE=latin2_general_ci;
 
 
 
-INSERT INTO COMPANYTYPES (`Name`)
-VALUES ('BACIC'),('ADQUIRENTE'),('DISTRIBUIDOR'),('REVENDA'),('CLIENTE');
+INSERT INTO COMPANYTYPES (`Name`,`CreatedUserId`,`ModifiedUserId`)
+VALUES ('BACIC',1,1),('ADQUIRENTE',1,1),('DISTRIBUIDOR',1,1),('REVENDA',1,1),('CLIENTE',1,1);
 
 
 
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS COMPANIES (
     `Name`              VARCHAR (100)   NOT NULL,                                                                                                 
     `CreatedDate`       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,                                                                                                  
     `CreatedUserId`     INT             NOT NULL DEFAULT 0,                                                                                       
-    `Modifiedate`       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,                                                                                             
+    `ModifiedDate`      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,                                                                                             
     `ModifiedUserId`    INT             NOT NULL DEFAULT 0,                                                                                       
     `IsDeleted`         BOOL            NOT NULL DEFAULT FALSE,                                                                                               
     CONSTRAINT PRIMARY KEY (`Id`)
@@ -120,8 +120,8 @@ CHARSET=latin2
 COLLATE=latin2_general_ci;
 
 
-INSERT INTO COMPANIES (`CompanyTypeId`, `Name`)
-VALUES (1, 'BACIC');
+INSERT INTO COMPANIES (`CompanyTypeId`,`Name`,`CreatedUserId`,`ModifiedUserId`)
+VALUES (1,'BACIC',1,1);
 
 
 
@@ -131,7 +131,7 @@ CREATE TABLE IF NOT EXISTS PAYMENT_OPTIONS (
     `PaymentFee`        DOUBLE(7,4)     NOT NULL DEFAULT 0,                                                                                     
     `CreatedDate`       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,                                                                                             
     `CreatedUserId`     INT             NOT NULL DEFAULT 0,                                                                                       
-    `Modifiedate`       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,                                                                                          
+    `ModifiedDate`      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,                                                                                          
     `ModifiedUserId`    INT             NOT NULL DEFAULT 0,                                                                                       
     `IsDeleted`         BOOLEAN         NOT NULL DEFAULT FALSE,                                                                                               
     CONSTRAINT PRIMARY KEY (`Id`)
@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS PAYMENT_RATE (
     `PaymentCommission` DOUBLE(7,4)     NOT NULL DEFAULT 0,
     `CreatedDate`       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `CreatedUserId`     INT             NOT NULL DEFAULT 0,
-    `Modifiedate`       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `ModifiedDate`      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `ModifiedUserId`    INT             NOT NULL DEFAULT 0,
     `IsDeleted`         BOOLEAN         NOT NULL DEFAULT FALSE,
     CONSTRAINT PRIMARY KEY (`Id`),
@@ -170,7 +170,7 @@ CREATE TABLE IF NOT EXISTS PAYMENTS (
     `PaymentFee`        DOUBLE(7,4)     NOT NULL DEFAULT 0,
     `CreatedDate`       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `CreatedUserId`     INT             NOT NULL DEFAULT 0,
-    `Modifiedate`       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `ModifiedDate`      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `ModifiedUserId`    INT             NOT NULL DEFAULT 0,
     `IsDeleted`         BOOLEAN         NOT NULL DEFAULT FALSE,
     CONSTRAINT PRIMARY KEY (`Id`),
@@ -187,9 +187,12 @@ COLLATE=latin2_general_ci;
 
 
 
+GRANT SELECT, INSERT, UPDATE, DELETE ON bacic_service_payment.* TO 'admin'@'localhost'; 
+
 
 -- SELECT * FROM COMPANYTYPES;
-
+-- SELECT * FROM USERS;
+-- SELECT * FROM PAYMENT_OPTIONS
 
 
 
