@@ -1,10 +1,12 @@
-.gitignore
 /node_modules
+node_modules/
 .o
 .pyc
-/bin
-/out
-/target.class
+.o
+.pyc
+bin/
+out/
+target.class/
 .log
 .lock
 .tmp
