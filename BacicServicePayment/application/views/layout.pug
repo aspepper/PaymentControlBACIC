@@ -2,12 +2,28 @@ doctype html
 html
   head
     title= `${title}`
-    link(rel='stylesheet', href='/application/assets/css/app.css')
-    link(rel='stylesheet', href='/application/assets/css/bootstrap.min.css')
-    script(src='/application/assets/js/bootstrap.min.js')
+
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='description', content='Portal')
+
+    link(rel='stylesheet', href='/public/assets/css/app.css')
+    link(rel='stylesheet', href='/public/assets/css/bootstrap.css')
+
+    script(src='/public/assets/js/bootstrap.js')
 
   body
-    h1 Dashboard PagSeg
 
     block content
-    script(src='/application/assets/js/bootstrap.bundle.min.js')
+      <div class="content">
+        <div class="row">
+          <div class="col-3">
+            include sidebar.pug
+          </div>
+          <div class="col-9">
+            block primary
+          </div>
+        </div>
+      </div>
+
+    script(src='/public/assets/js/bootstrap.bundle.js')
