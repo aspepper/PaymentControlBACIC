@@ -77,9 +77,6 @@ COLLATE=latin2_general_ci;
 INSERT INTO USERS (`UserName`, `Password`, `Name`, `Document`)
 VALUES ('Admin', '---', 'Administrador', NULL);
 
-INSERT INTO USERROLES (`UserId`, `RoleId`) VALUES (1, 1);
-
-
 
 -- DISTRIBUIDORES, REVENDAS, ADQUIRENTES, BACIC 
 CREATE TABLE IF NOT EXISTS COMPANYTYPES (                                                                                                          
@@ -102,7 +99,6 @@ INSERT INTO COMPANYTYPES (`Name`,`CreatedUserId`,`ModifiedUserId`)
 VALUES ('BACIC',1,1),('ADQUIRENTE',1,1),('DISTRIBUIDOR',1,1),('REVENDA',1,1),('CLIENTE',1,1);
 
 
-
 CREATE TABLE IF NOT EXISTS COMPANIES (                                                                                                          
     `Id`                INT             NOT NULL AUTO_INCREMENT,
     `CompanyTypeId`     INT             NOT NULL,
@@ -119,10 +115,16 @@ ENGINE=INNODB
 CHARSET=latin2 
 COLLATE=latin2_general_ci;
 
+SELECT * FROM COMPANYTYPES;
 
 INSERT INTO COMPANIES (`CompanyTypeId`,`Name`,`CreatedUserId`,`ModifiedUserId`)
 VALUES (1,'BACIC',1,1);
 
+INSERT INTO COMPANIES (`CompanyTypeId`,`Name`,`CreatedUserId`,`ModifiedUserId`)
+VALUES (4,'Despahcante Paraná',1,1);
+
+INSERT INTO COMPANIES (`CompanyTypeId`,`Name`,`CreatedUserId`,`ModifiedUserId`)
+VALUES (5,'Despachante Paraná',1,1);
 
 
 CREATE TABLE IF NOT EXISTS PAYMENT_OPTIONS (                                                                                                             
@@ -139,7 +141,6 @@ CREATE TABLE IF NOT EXISTS PAYMENT_OPTIONS (
 ENGINE=INNODB 
 CHARSET=latin2 
 COLLATE=latin2_general_ci;
-
 
 
 CREATE TABLE IF NOT EXISTS PAYMENT_RATE (                                                                                                             
@@ -159,7 +160,6 @@ CREATE TABLE IF NOT EXISTS PAYMENT_RATE (
 ENGINE=INNODB 
 CHARSET=latin2 
 COLLATE=latin2_general_ci;
-
 
 
 CREATE TABLE IF NOT EXISTS PAYMENTS (                                                                                                             
