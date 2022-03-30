@@ -11,17 +11,20 @@ html
     link(rel='stylesheet', href='/public/assets/css/bootstrap.css')
 
     script(src='/public/assets/js/bootstrap.js')
+    script(src="https://kit.fontawesome.com/4f183826ec.js" crossorigin="anonymous")
 
   body
 
     block content
 
       div(class="container")
+
         div(class="row")
-          div(class="col-3 backgroung-color: #BFC9CA")
+
+          div(class="col-3 background-color: #BFC9CA")
             include sidebar.pug
 
-          div(class="col-9 backgroung-color: #D0D3D4")
+          div(class="col-9 background-color: #D0D3D4")
             block primary
 
     script(src='/public/assets/js/bootstrap.bundle.js')
