@@ -15,15 +15,13 @@ html
   body
 
     block content
-      <div class="content">
-        <div class="row">
-          <div class="col-3">
+
+      div(class="container")
+        div(class="row")
+          div(class="col-3 backgroung-color: #BFC9CA")
             include sidebar.pug
-          </div>
-          <div class="col-9">
+
+          div(class="col-9 backgroung-color: #D0D3D4")
             block primary
-          </div>
-        </div>
-      </div>
 
     script(src='/public/assets/js/bootstrap.bundle.js')
