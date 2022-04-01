@@ -1,10 +1,12 @@
 class User {
     
     id: number;
-    userName: String;
-    password: String;
-    name: String;
-    document: String;
+    userName: string;
+    password: string;
+    name: string;
+    document: string;
+    email: string;
+    mobile: string;
 
     constructor() {
         this.id = 0;
@@ -12,6 +14,8 @@ class User {
         this.password = "";
         this.name = "";
         this.document = "";
+        this.email = "";
+        this.mobile = "";
     }
 
 }

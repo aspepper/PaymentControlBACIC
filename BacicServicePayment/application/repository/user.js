@@ -8,35 +8,64 @@ class UserRepository {
         this.model = userModel;
     }
 
-    async create(rec: user){
+    async create(rec: user): number {
+
         const salt = await bcrypt.genSalt(10);
         rec.password = await bcrypt.hash(rec.password, salt);
 
-        const resultado = await userModel.create({
+        const Id = await userModel.create({
             UserName: rec.userName,
             Password: rec.password,
             Name: rec.name,
-            Document: rec.document
-        }).then(function (users) {
-            if (users) {
-                console.log(users);
+            Document: rec.document,
+            Email: rec.email,
+            Mobile: rec.mobile
+        }).then(function (record) {
+            if (record) {
+                console.log(record);
+                return record["dataValues"]["Id"];
             } else {
                 console.log('Error in insert new record');
             }
-            return users
+            return null
         })
         .catch(function(err){
-            return err;
+            console.log(err);
+            return null;
         }); 
 
-        console.log('Resultado do Cadastro');
-        console.log(resultado);
+        return Id;
     }
 
-    // async getAll(param: String): user {
-    //     const record = await userModel.find()
+    async get(username: string): user {
 
-    // }
+        var userReturn = new user(); 
+
+        const userFind = await userModel
+                                .findOne({ where: { userName: username } })
+                                .then(function(record){
+                                    if (record != null){
+                                        console.log("findOne")
+                                        userReturn.id = record.Id;
+                                        userReturn.userName = record.UserName;
+                                        userReturn.password = record.Password;
+                                        userReturn.name = record.Name;
+                                        userReturn.document = record.Document;
+                                        userReturn.email = record.Email;
+                                        userReturn.mobile = record.Mobile;
+                                        console.log(userReturn);
+                                        return record;
+                                    }
+                                    return null;
+                                });
+
+        return userFind;
+
+    }
+
+    async getAll(): userModel[] {
+        return await userModel.findAll();
+    }
 
 }
 export default new UserRepository();

@@ -25,6 +25,14 @@ class UserModel{
             },
             Document: {
                 type: Sequelize.STRING,
+                allowNull: true
+            },
+            Email: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
+            Mobile: {
+                type: Sequelize.STRING,
                 allowNull: false
             },
             ModifiedDate: {

@@ -40,9 +40,11 @@ INSERT INTO ROLES(`Name`) VALUES ('Administrator');
 CREATE TABLE IF NOT EXISTS USERS (                                                                                                               
     `Id`                INT             NOT NULL AUTO_INCREMENT,
     `UserName`          VARCHAR (50)    NOT NULL,
-    `Password`          VARCHAR (255)    NOT NULL,
+    `Password`          VARCHAR (255)   NOT NULL,
     `Name`              VARCHAR (100)   NOT NULL,
     `Document`          VARCHAR (14)    NULL, -- CPF / CNPJ
+    `Email`             VARCHAR (100)   NOT NULL,
+    `Mobile`            VARCHAR (13)    NOT NULL,
     `CreatedDate`       TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `CreatedUserId`     INT             NOT NULL DEFAULT 0,
     `ModifiedDate`      TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -55,7 +57,6 @@ CHARSET=latin2
 COLLATE=latin2_general_ci;
 
 ALTER TABLE USERS ADD INDEX (UserName);
-
 
 
 CREATE TABLE IF NOT EXISTS USERROLES (                                                                                                               
@@ -74,8 +75,8 @@ CHARSET=latin2
 COLLATE=latin2_general_ci;
 
 
-INSERT INTO USERS (`UserName`, `Password`, `Name`, `Document`)
-VALUES ('Admin', '---', 'Administrador', NULL);
+-- INSERT INTO USERS (`UserName`, `Password`, `Name`, `Document`)
+-- VALUES ('Admin', '---', 'Administrador', NULL);
 
 
 -- DISTRIBUIDORES, REVENDAS, ADQUIRENTES, BACIC 
@@ -92,7 +93,6 @@ CREATE TABLE IF NOT EXISTS COMPANYTYPES (
 ENGINE=INNODB 
 CHARSET=latin2 
 COLLATE=latin2_general_ci;
-
 
 
 INSERT INTO COMPANYTYPES (`Name`,`CreatedUserId`,`ModifiedUserId`)
@@ -115,7 +115,6 @@ ENGINE=INNODB
 CHARSET=latin2 
 COLLATE=latin2_general_ci;
 
-SELECT * FROM COMPANYTYPES;
 
 INSERT INTO COMPANIES (`CompanyTypeId`,`Name`,`CreatedUserId`,`ModifiedUserId`)
 VALUES (1,'BACIC',1,1);
@@ -124,7 +123,7 @@ INSERT INTO COMPANIES (`CompanyTypeId`,`Name`,`CreatedUserId`,`ModifiedUserId`)
 VALUES (4,'Despahcante Paraná',1,1);
 
 INSERT INTO COMPANIES (`CompanyTypeId`,`Name`,`CreatedUserId`,`ModifiedUserId`)
-VALUES (5,'Despachante Paraná',1,1);
+VALUES (5,'Despachante Rio Grande',1,1);
 
 
 CREATE TABLE IF NOT EXISTS PAYMENT_OPTIONS (                                                                                                             
@@ -186,16 +185,21 @@ CHARSET=latin2
 COLLATE=latin2_general_ci;
 
 
-
 GRANT SELECT, INSERT, UPDATE, DELETE ON bacic_service_payment.* TO 'admin'@'localhost'; 
 
 
--- SELECT * FROM COMPANYTYPES;
--- SELECT * FROM USERS;
--- SELECT * FROM PAYMENT_OPTIONS
+/* 
+  
+SELECT * FROM COMPANYTYPES;
+SELECT * FROM ROLES;
+SELECT * FROM USERS;
+SELECT * FROM USERROLES;
+SELECT * FROM PAYMENT_OPTIONS
 
 
+arthur.bender
 
+*/
 
 
 
