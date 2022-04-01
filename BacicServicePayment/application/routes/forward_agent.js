@@ -1,10 +1,10 @@
 const express = require("express")
 const { check, validationResult } = require('express-validator');
 
-const router=express.Router();
+const router=express.Router()
 
-router.get("/",(req,res,next)=>{
-    res.render('login', { title: 'Login' });
+router.get('/', (req, res) => {
+    res.render('forward_agent', { title: 'Despachante' });
 });
 
 router.post('/',
@@ -15,6 +15,12 @@ router.post('/',
   check('Password')
     .isLength({ min: 3 })
     .withMessage('Informe a Senha'),
+  check('Name')
+    .isLength({ min: 3 })
+    .withMessage('Informe o Nome'),
+  check('Document')
+    .isLength({ min: 11 })
+    .withMessage('Informe o Documento'),
 ],
 (req, res) => {
     const errors = validationResult(req);
@@ -32,3 +38,6 @@ router.post('/',
 });
 
 module.exports=router
+
+
+

@@ -20,9 +20,19 @@
 .subscribe-container form input[type="submit"] {
     border-radius: 3px;
     background-color: rgba(17, 228, 10, 0.5);
-color: rgb(98, 143, 228);
+    color: rgb(98, 143, 228);
 }
 
 .subscribe-container form input[type="email"] {
     flex: 1 1 250px;
+}
+
+.text-underline-hover {
+    text-decoration: none;
+    color: dimgrey;
+}
+
+.text-underline-hover:hover {
+    text-decoration: none;
+    color: blue;
 }

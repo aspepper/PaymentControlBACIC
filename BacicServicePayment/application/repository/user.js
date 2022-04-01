@@ -40,12 +40,10 @@ class UserRepository {
     async get(username: string): user {
 
         var userReturn = new user(); 
-
         const userFind = await userModel
                                 .findOne({ where: { userName: username } })
                                 .then(function(record){
                                     if (record != null){
-                                        console.log("findOne")
                                         userReturn.id = record.Id;
                                         userReturn.userName = record.UserName;
                                         userReturn.password = record.Password;
@@ -53,14 +51,12 @@ class UserRepository {
                                         userReturn.document = record.Document;
                                         userReturn.email = record.Email;
                                         userReturn.mobile = record.Mobile;
-                                        console.log(userReturn);
                                         return record;
                                     }
                                     return null;
                                 });
 
         return userFind;
-
     }
 
     async getAll(): userModel[] {

@@ -1,23 +1,29 @@
-import app from './lib/app';
-import bodyParser from 'body-parser';
-import homeRouter from './routes/home';
-import dashboard from './routes/dashboard';
 import express from 'express';
+import bodyParser from 'body-parser';
+import app from './lib/app';
 import path from 'path';
+
+import routerDashboard from './routes/dashboard';
+import routerLogin from './routes/login';
+import routerUser from './routes/user';
+import routerForward from './routes/forward_agent';
+
 import user from './repository/user';
 import userRole from './repository/userRole';
 import userEntity from './entities/user';
 import userRoleEntity from './entities/userRole';
 
-// app.use('/assets',express.static('public'));
 app.use('/public', express.static(path.join(__dirname, 'public')))
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'pug');
 
-app.use("/", homeRouter);
-app.use("/home", homeRouter);
-app.use("/dashboard", dashboard);
+app.use("/", routerDashboard);
+app.use("/home", routerDashboard);
+app.use("/dashboard", routerDashboard);
+app.use("/login", routerLogin);
+app.use("/user", routerUser);
+app.use("/forward_agent", routerForward);
 
 /* Caso não tenho o usuário admin, cria o admin com senha padrão admin */
 const userAdmin = user.get('admin');
@@ -34,7 +40,6 @@ userAdmin.then(function(found) {
         record.mobile = '13991206178';
         const userId = user.create(record);
 
-        console.log(userId);
         if (userId != null ) {
             const recordUR = new userRoleEntity();
             recordUR.userId = parseInt(userId);

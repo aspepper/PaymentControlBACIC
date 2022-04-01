@@ -1,0 +1,102 @@
+extends layout
+
+block primary
+
+    div(class="row mt-3")
+
+        div(class="col-6 text-start p-1 text-dark")
+            h4 Cadastro de Usuários
+
+        div(class="col-4 text-end p-1 text-dark")
+            p Notificações
+
+        div(class="col-1 text-center")
+            i(class="fa-regular fa-bell")
+
+        div(class="col-1 text-start")
+            i(class="fa-regular fa-user")
+
+    form(action="." method="POST")
+
+    div(class="row mt-3")
+
+        div(class="col-4 text-end p-1 text-dark")
+            label(for="Name" class="form-label") Nome:
+
+        div(class="col-8 text-start p-1 text-dark")
+            input(
+                type="text"
+                id="name"
+                name="name"
+                class="form-control"
+            )
+
+    div(class="row mt-3")
+
+        div(class="col-4 text-end p-1 text-dark")
+            label(for="Email" class="form-label") Email:
+
+        div(class="col-8 text-start p-1 text-dark")
+            input(
+                type="text"
+                id="email"
+                name="email"
+                class="form-control"
+            )
+
+    div(class="row mt-3")
+
+        div(class="col-4 text-end p-1 text-dark")
+            label(for="Mobile" class="form-label") Celular:
+
+        div(class="col-8 text-start p-1 text-dark")
+            input(
+                type="text"
+                id="email"
+                name="email"
+                class="form-control"
+            )
+
+    div(class="row mt-3")
+
+        div(class="col-4 text-end p-1 text-dark")
+            label(for="Document" class="form-label") Documento:
+
+        div(class="col-8 text-start p-1 text-dark")
+            input(
+                type="text"
+                id="document"
+                name="document"
+                class="form-control"
+            )
+
+    div(class="row mt-3")
+
+        div(class="col-4 text-end p-1 text-dark")
+            label(for="UserName" class="form-label") Usuáeio:
+
+        div(class="col-8 text-start p-1 text-dark")
+            input(
+                type="text"
+                id="username"
+                name="username"
+                class="form-control"
+            )
+
+    div(class="row mt-3")
+
+        div(class="col-4 text-end p-1 text-dark")
+            label(for="Password" class="form-label") Senha:
+
+        div(class="col-8 text-start p-1 text-dark")
+            input(
+                type="text"
+                id="password"
+                name="password"
+                class="form-control"
+            )
+
+    div(class="row mt-3")
+
+        div(class="col-12 text-end p-1 text-dark")
+            input(type="submit" class="btn btn-primary" value="Salvar")

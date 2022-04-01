@@ -1,7 +1,7 @@
 const express = require("express")
 const { check, validationResult } = require('express-validator');
 
-const router=express.Router()
+const router=express.Router();
 
 router.get('/', (req, res) => {
     res.render('user', { title: 'Usuário' });
@@ -21,6 +21,12 @@ router.post('/',
   check('Document')
     .isLength({ min: 11 })
     .withMessage('Informe o Documento'),
+  check('Email')
+    .isLength({ min: 3 })
+    .withMessage('Informe o Email'),
+  check('Mobile')
+    .isLength({ min: 9 })
+    .withMessage('Informe o Celular'),
 ],
 (req, res) => {
     const errors = validationResult(req);
