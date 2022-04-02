@@ -1,5 +1,5 @@
-const express = require("express")
-const { check, validationResult } = require('express-validator');
+import express from "express";
+import { check, validationResult } from 'express-validator';
 
 const router=express.Router();
 
@@ -20,8 +20,7 @@ router.post('/',
     const errors = validationResult(req);
 
     if (errors.isEmpty()) {
-        userModel
-      res.send('');
+        res.send('dashboard', { title: 'Dashboard'});
     } else {
       res.render('form', {
         title: 'Registration form',

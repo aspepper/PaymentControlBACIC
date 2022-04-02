@@ -49,6 +49,11 @@ userAdmin.then(function(found) {
     }
 });
 
+let logged = false;
+if (!logged){
+    
+}
+
 app.listen(3000, function () {
     console.log('Node app is running on port 3000');
 });
