@@ -1,10 +1,15 @@
 import express from "express";
 import { check, validationResult } from 'express-validator';
+import passport from 'passport';
 
 const router=express.Router();
 
-router.get("/",(req,res,next)=>{
-    res.render('login', { title: 'Login' });
+router.get('/', (req, res, next) => {
+  console.log("entramos no get");
+  if (req.query.fail)
+  res.render('login', { title: 'Usuário', message: 'Usuário e/ou senha incorretos!' });
+    else
+  res.render('login', { title: 'Usuário', message: null });
 });
 
 router.post('/',
@@ -17,17 +22,13 @@ router.post('/',
     .withMessage('Informe a Senha'),
 ],
 (req, res) => {
-    const errors = validationResult(req);
-
-    if (errors.isEmpty()) {
-        res.send('dashboard', { title: 'Dashboard'});
-    } else {
-      res.render('form', {
-        title: 'Registration form',
-        errors: errors.array(),
-        data: req.body,
-      });
-    }
+  console.log("entramos no post - passport.Strategy");
+  console.log(passport.Strategy);
+  passport.authenticate('local', { 
+    successRedirect: '/', 
+    failureRedirect: '/login?fail=true' 
+  })
+  res.redirect("/dashboard");
 });
 
 module.exports=router
