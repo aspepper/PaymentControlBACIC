@@ -53,6 +53,7 @@ class UserModel{
         },{
             timestamps: false
         });
+
     }
 
 }

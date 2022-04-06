@@ -5,15 +5,15 @@ import passport from'passport';
 import session from 'express-session';
 import path from 'path';
 
-import routerDashboard from './routes/dashboard';
-//import routerLogin from './routes/login';
-import routerUser from './routes/user';
-import routerForward from './routes/forward_agent';
+import routerDashboard from './application/routes/dashboard';
+import routerUser from './application/routes/user';
+import routerForward from './application/routes/forward_agent';
 
-import userRepo from './repository/user';
-import userRole from './repository/userRole';
-import userEntity from './entities/user';
-import userRoleEntity from './entities/userRole';
+import userRepo from './application/repository/user';
+import userRole from './application/repository/userRole';
+import userEntity from './application/entities/user';
+import userRoleEntity from './application/entities/userRole';
+import User from './application/entities/user';
 
 const app = express();
 
@@ -33,7 +33,7 @@ userAdmin.then(function(found) {
             const recordUR = new userRoleEntity();
             recordUR.userId = parseInt(userId);
             recordUR.roleId = 1; // Administrator Geral
-            const roleId = userRole.create(recordUR);
+            userRole.create(recordUR);
         }
     }
 });
@@ -41,6 +41,7 @@ userAdmin.then(function(found) {
 
 //require('./auth')(passport);
 
+const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
 
 passport.serializeUser(function (user, done) {
@@ -52,21 +53,22 @@ passport.deserializeUser(function (user, done) {
  
 passport.use(new LocalStrategy(
     function (username, password, done) {
-
-        console.log("Passing by Authentication LocalStrategy");
-        console.log(username);
-        console.log(password);
-
         const user = userRepo.get(username);
-
         user.then(function(_user) {
-            if (!_user) { return done(null, false, {"message": "Usuário não encontrado."}) }
-            if (!userRepo.authentication(username, password)) { return done(null, false, {"message": "Não foi autenticado."}); }
-            
-            return done(null, _user);
+            if (!_user) { return done(null, false, {"message": "Acesso não autenticado."}); }
+            bcrypt.compare(password, _user.Password, (err, isValid) => {
+              if (err) {
+                return done(null, false, err)
+              }
+              if (!isValid) {
+                return done(null, false, {message: "Acesso não autorizado"})
+              }
+              return done(null, user)
+            })
         });
-    })
-);
+
+    }
+));
 
 app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -90,9 +92,9 @@ function authenticationMiddleware(req, res, next) {
     res.redirect("/login")
 }
 
-app.use('/public', express.static(path.join(__dirname, 'public')))
+app.use('/public', express.static(path.join(__dirname, 'application/public')))
 app.use(bodyParser.urlencoded({ extended: true }));
-app.set('views', path.join(__dirname, '/views'));
+app.set('views', path.join(__dirname, '/application/views'));
 app.set('view engine', 'pug');
 
 //app.use("/login", routerLogin);
