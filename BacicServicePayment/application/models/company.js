@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize';
 import Database from '../lib/db';
 
-class CompanyModel{
+class CompanyModel {
 
     constructor(){
         this.company = Database.define('COMPANIES', {
@@ -22,6 +22,20 @@ class CompanyModel{
             Name: {
                 type: Sequelize.STRING,
                 allowNull: false
+            },
+            CNPJ: {
+                type: Sequelize.STRING,
+                allowNull: false
+            },
+            CreatedDate: {
+                type: Sequelize.DATE,
+                allowNull: false,
+                defaultValue: new Date()
+            },
+            CreatedUserId: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                defaultValue: 1
             },
             ModifiedDate: {
                 type: Sequelize.DATE,

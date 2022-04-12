@@ -2,65 +2,63 @@ extends layout
 
 block primary
 
-    form(action="/login" method="POST")
+    include header.pug
 
-        include header.pug
+    div(class="row mt-3")
 
-        div(class="row mt-3")
+        div(class="col-2 text-end p-1 text-dark")
+            label(for="UserName" class="form-label") Usuário:
 
-            div(class="col-2 text-end p-1 text-dark")
-                label(for="UserName" class="form-label") Usuário:
+        div(class="col-6 text-start p-1 text-dark")
+            input(type="text"
+                id="username"
+                name="username"
+                class="form-control"
+            )
 
-            div(class="col-6 text-start p-1 text-dark")
-                input(type="text"
-                    id="username"
-                    name="username"
-                    class="form-control"
-                )
+        div(class="col-4 text-start p-1 text-dark")
+            p &nbsp;
 
-            div(class="col-4 text-start p-1 text-dark")
-                p &nbsp;
+    div(class="row mt-3")
 
-        div(class="row mt-3")
+        div(class="col-2 text-end p-1 text-dark")
+            label(for="Password" class="form-label") Senha:
 
-            div(class="col-2 text-end p-1 text-dark")
-                label(for="Password" class="form-label") Senha:
+        div(class="col-6 text-start p-1 text-dark")
+            input(type="password"
+                id="password"
+                name="password"
+                password="true"
+                class="form-control" 
+            )
 
-            div(class="col-6 text-start p-1 text-dark")
-                input(type="password"
-                    id="password"
-                    name="password"
-                    password="true"
-                    class="form-control" 
-                )
+        div(class="col-4 text-start p-1 text-dark")
+            p &nbsp;
 
-            div(class="col-4 text-start p-1 text-dark")
-                p &nbsp;
+    div(class="row mt-3")
 
-        div(class="row mt-3")
+        div(class="col-4 text-end p-1 text-dark")
+            p &nbsp;
+        div(class="col-4 text-end p-1 text-dark")
+            input(type="submit" class="btn btn-primary" value="Logar")
 
-            div(class="col-4 text-end p-1 text-dark")
-                p &nbsp;
-            div(class="col-4 text-end p-1 text-dark")
-                input(type="submit" class="btn btn-primary" value="Logar")
+    -if (typeof(message) !== 'undefined'){
+    div(class="row mt-3")
 
-        -if (typeof(message) !== 'undefined'){
-        div(class="row mt-3")
+        div(class="col-12 text-center p-2 text-red")
+            p #{message}
+    -}
 
-            div(class="col-12 text-center p-2 text-red")
-                p #{message}
-        -}
+    div(class="row mt-3")
 
-        div(class="row mt-3")
+        div(class="col-5 text-end p-1 text-dark")
+            a(href="/users/forgot")
+                p Esqueceu sua senha?
 
-            div(class="col-5 text-end p-1 text-dark")
-                a(href="/users/forgot")
-                    p Esqueceu sua senha?
+        div(class="col-1 text-start p-1 text-dark")
+            p |
 
-            div(class="col-1 text-start p-1 text-dark")
-                p |
-
-            div(class="col-4 text-start p-1 text-dark")
-                a(href="/users/signup")
-                    p Não possui cadastro?
+        div(class="col-4 text-start p-1 text-dark")
+            a(href="/users/signup")
+                p Não possui cadastro?
 

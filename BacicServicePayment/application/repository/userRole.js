@@ -1,22 +1,20 @@
-import bcrypt from 'bcrypt';
 import model from '../models/userRole';
-import userRole from '../entities/userRole';
+import entity from '../entities/userRole';
 
-class UserRepository {
+class UserRoleRepository {
 
     constructor(){
         this.model = model;
     }
 
-    async create(rec: userRole): number {
+    async create(rec: entity): number {
 
         const Id = await model.create({
             UserId: rec.userId,
             RoleId: rec.roleId
         }).then(function (record) {
             if (record) {
-                console.log(record);
-                return record["dataValues"]["Id"];
+                return record.dataValues.Id;
             } else {
                 console.log('Error in insert new record');
             }
@@ -37,4 +35,4 @@ class UserRepository {
     }
 
 }
-export default new UserRepository();
+export default new UserRoleRepository();

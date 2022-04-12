@@ -20,6 +20,16 @@ class PaymentRateModel{
                 allowNull: false,
                 default: 0
             },
+            CreatedDate: {
+                type: Sequelize.DATE,
+                allowNull: false,
+                defaultValue: new Date()
+            },
+            CreatedUserId: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                defaultValue: 1
+            },
             ModifiedDate: {
                 type: Sequelize.DATE,
                 allowNull: false,

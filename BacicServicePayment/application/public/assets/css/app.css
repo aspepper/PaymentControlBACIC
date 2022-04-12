@@ -1,3 +1,17 @@
+html, body, form {
+    height: 100%;
+    font-size: 1rem;
+}
+
+.container-fluid {
+    margin: 0 auto;
+    height: 100% !important;
+
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 .subscribe-container {
     max-width: 800px;
     margin: 60px auto;
@@ -8,11 +22,13 @@
     display: flex;
     flex-wrap: wrap;
 }
+
 .subscribe-container form input {
     margin: 15px;
     border: 1px solid rgb(98, 143, 228);
     padding: 0.4rem;
 }
+
 .subscribe-container form input {
     flex: 1 1 200px;
 }
@@ -36,3 +52,22 @@
     text-decoration: none;
     color: blue;
 }
+
+.sidebar {
+    background-color: #d2dcdd;
+}
+
+.content-pages {
+    background-color: #ffffff;
+}
+
+.box-values {
+    background-color: rgb(166, 186, 222);
+}
+
+.value-spotlight {
+    font-size: 2.5rem !important;
+    font-weight: bold;
+    color: #022225;
+}
+

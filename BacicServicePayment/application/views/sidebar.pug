@@ -1,80 +1,69 @@
 
-div(class="row mt-3")
-    div(class="col-6 text-end p-1 text-primary ml-0")
+div(class="d-flex flex-row mt-3")
+    div(class="col-6 text-end p-1 text-primary ml-3")
         h1 PAG
-    div(class="col-6 text-start p-1 text-black-50 mar-0")
+    div(class="col-6 text-start p-1 text-black-50 mr-3")
         h1 SEG
 
-div(class="row")
-    div(class="col-1")
-        p &nbsp;
-    div(class="col-3 text-end")
+div(class="d-flex flex-row")
+    div(class="col-2 text-center ml-3")
         i(class="fa-solid fa-chart-simple")
-    div(class="col-8 text-start")
+    div(class="col-8 text-start ml-3")
         a(href="./agent" class="text-underline-hover")
-            p Visão Geral
+            p &nbsp;Visão Geral
 
-div(class="row")
-    div(class="col-1")
-        p &nbsp;
-    div(class="col-3 text-end")
+div(class="d-flex flex-row")
+    div(class="col-2 text-center ml-3")
         i(class="fa-solid fa-file-invoice")
-    div(class="col-8 text-start")
+    div(class="col-8 text-start ml-3")
         a(href="./charges" class="text-underline-hover")
-            p Minhas Cobranças
+            p &nbsp;Minhas Cobranças
 
-div(class="row")
-    div(class="col-1")
-        p &nbsp;
-    div(class="col-3 text-end")
+div(class="d-flex flex-row")
+    div(class="col-2 text-center ml-3")
         i(class="fa-solid fa-coins")
-    div(class="col-8 text-start")
+    div(class="col-8 text-start ml-3")
         a(href="./yield" class="text-underline-hover")
-            p Meus Rendimentos
+            p &nbsp;Meus Recebimentos
 
-div(class="row")
-    div(class="col-1")
-        p &nbsp;
-    div(class="col-3 text-end")
+div(class="d-flex flex-row")
+    div(class="col-2 text-center ml-3")
         i(class="fa-solid fa-dna")
-    div(class="col-8 text-start")
+    div(class="col-8 text-start ml-3")
         a(href="./returns" class="text-underline-hover")
-            p Minhas Devoluções
+            p &nbsp;Minhas Devoluções
 
-div(class="row")
-    div(class="col-1")
-        p &nbsp;
-    div(class="col-3 text-end")
+div(class="d-flex flex-row")
+    div(class="col-2 text-center ml-3")
         i(class="fa-solid fa-file")
-    div(class="col-8 text-start")
+    div(class="col-8 text-start ml-3")
         a(href="./summary_movement" class="text-underline-hover")
-            p Resumo de Movimentações
+            p &nbsp;Resumo de Movimentações
 
-div(class="row")
-    div(class="col-1")
-        p &nbsp;
-    div(class="col-3 text-end")
+div(class="d-flex flex-row")
+    div(class="col-2 text-center ml-3")
         i(class="fa-solid fa-share-nodes")
-    div(class="col-8 text-start")
+    div(class="col-8 text-start ml-3")
         a(href="./forward_agent" class="text-underline-hover")
-            p Despachantes
+            p &nbsp;Despachantes
 
-div(class="row")
-    div(class="col-1")
-        p &nbsp;
-    div(class="col-3 text-end")
+div(class="d-flex flex-row")
+    div(class="col-2 text-center ml-3")
         i(class="fa-solid fa-percent")
-    div(class="col-8 text-start")
+    div(class="col-8 text-start ml-3")
         a(href="./pay_taxes" class="text-underline-hover")
-            p Pagamento de Tributes
+            p &nbsp;Pagamento de Tributes
 
-div(class="row")
-    div(class="col-1")
-        p &nbsp;
-    div(class="col-3 text-end")
+div(class="d-flex flex-row")
+    div(class="col-2 text-center ml-3")
         i(class="fa-solid fa-bell-concierge")
-    div(class="col-8 text-start")
+    div(class="col-8 text-start ml-3")
         a(href="./services" class="text-underline-hover")
-            p Serviços
+            p &nbsp;Serviços
 
+-if (typeof(message) !== 'undefined'){
+div(class="row mt-3")
+    div(class="col-12 text-center p-2 text-red")
+        p #{message}
+-}
 

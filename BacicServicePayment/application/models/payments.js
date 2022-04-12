@@ -1,10 +1,10 @@
 import Sequelize from 'sequelize';
 import Database from '../lib/db';
 
-class Payment{
+class PaymentModel{
 
-    constructorModel(){
-        this.payment = Database.define('PAYMENTS', {
+    constructor(){
+        this.model = Database.define('PAYMENTS', {
             Id: {
                 type: Sequelize.INTEGER,
                 autoIncrement: true,
@@ -15,18 +15,47 @@ class Payment{
                 type: Sequelize.INTEGER,
                 allowNull: false
             },
+            CompanyId: {
+                type: Sequelize.INTEGER,
+                allowNull: false
+            },
             CustomerId: {
                 type: Sequelize.INTEGER,
                 allowNull: false
             },
-            Name: {
+            Description: {
                 type: Sequelize.STRING,
                 allowNull: false
+            },
+            Value: {
+                type: Sequelize.DOUBLE,
+                allowNull: false,
+                default: 0
             },
             PaymentFee: {
                 type: Sequelize.DOUBLE,
                 allowNull: false,
                 default: 0
+            },
+            Status: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                default: 0
+            },
+            StatusDate: {
+                type: Sequelize.DATE,
+                allowNull: false,
+                default: 0
+            },
+            CreatedDate: {
+                type: Sequelize.DATEONLY,
+                allowNull: false,
+                defaultValue: new Date()
+            },
+            CreatedUserId: {
+                type: Sequelize.INTEGER,
+                allowNull: false,
+                defaultValue: 1
             },
             ModifiedDate: {
                 type: Sequelize.DATE,
@@ -49,4 +78,4 @@ class Payment{
     }
 
 }
-export default new PaymentModel().payment;
+export default new PaymentModel().model;

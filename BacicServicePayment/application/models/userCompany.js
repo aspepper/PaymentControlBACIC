@@ -1,38 +1,16 @@
 import Sequelize from 'sequelize';
 import Database from '../lib/db';
 
-class UserModel{
+class UserCompanyModel{
 
     constructor(){
-        this.user = Database.define('USERS', {
-            Id: {
+        this.model = Database.define('USERCOMPANIES', {
+            UserId: {
                 type: Sequelize.INTEGER,
-                autoIncrement: true,
-                allowNull: false,
-                primaryKey: true
-            },
-            UserName: {
-                type: Sequelize.STRING,
                 allowNull: false
             },
-            Password: {
-                type: Sequelize.STRING,
-                allowNull: false
-            },
-            Name: {
-                type: Sequelize.STRING,
-                allowNull: false
-            },
-            Document: {
-                type: Sequelize.STRING,
-                allowNull: true
-            },
-            Email: {
-                type: Sequelize.STRING,
-                allowNull: false
-            },
-            Mobile: {
-                type: Sequelize.STRING,
+            CompanyId: {
+                type: Sequelize.INTEGER,
                 allowNull: false
             },
             CreatedDate: {
@@ -64,7 +42,8 @@ class UserModel{
             timestamps: false
         });
 
+        this.model.removeAttribute('id');
     }
 
 }
-export default new UserModel().user;
+export default new UserCompanyModel().model;

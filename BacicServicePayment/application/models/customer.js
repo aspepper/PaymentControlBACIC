@@ -1,37 +1,25 @@
 import Sequelize from 'sequelize';
 import Database from '../lib/db';
 
-class UserModel{
+class CustomerModel {
 
     constructor(){
-        this.user = Database.define('USERS', {
+        this.model = Database.define('CUSTOMERS', {
             Id: {
                 type: Sequelize.INTEGER,
                 autoIncrement: true,
                 allowNull: false,
                 primaryKey: true
             },
-            UserName: {
-                type: Sequelize.STRING,
-                allowNull: false
-            },
-            Password: {
-                type: Sequelize.STRING,
+            PersonType: {
+                type: Sequelize.CHAR,
                 allowNull: false
             },
             Name: {
                 type: Sequelize.STRING,
-                allowNull: false
-            },
-            Document: {
-                type: Sequelize.STRING,
                 allowNull: true
             },
-            Email: {
-                type: Sequelize.STRING,
-                allowNull: false
-            },
-            Mobile: {
+            Document: {
                 type: Sequelize.STRING,
                 allowNull: false
             },
@@ -63,8 +51,7 @@ class UserModel{
         },{
             timestamps: false
         });
-
     }
 
 }
-export default new UserModel().user;
+export default new CustomerModel().model;

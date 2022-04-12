@@ -2,18 +2,69 @@ extends layout
 
 block primary
 
-    div(class="row mt-3")
+    include header.pug
 
-        div(class="col-6 text-start p-1 text-dark")
-            h4 Despachante de São Paulo
+    if (isAdmin || isAdminGeneral)
+        div(class="d-flex flex-row mt-3")
+            div(class="col-12 text-start p-1 text-dark")
+                p Empresa: #{name}
 
-        div(class="col-4 text-end p-1 text-dark")
-            p Notificações
+        div(class="d-flex flex-row")
+            div(class="col-4 text-start p-1 text-dark")
+                if (isAdmin || isAdminGeneral) 
+                    if (list.length > 0)
+                        select(class="form-select" aria-label="Default select" id="clients")
+                            each record in list
+                                option(value=record.Id) #{record.Name}
+                    else
+                        p Nenhum despachante cadastrado.
 
-        div(class="col-1 text-center")
-            i(class="fa-regular fa-bell")
+            div(class="col-4 text-start p-1 text-dark")
+                p &nbsp;
 
-        div(class="col-1 text-start")
-            i(class="fa-regular fa-user")
+            div(class="col-4 text-end p-1 text-dark")
+                select(class="form-select" aria-label="Default select" id="dias")
+                    option(value=7) Ultimos 7 dias
+                    option(value=15) Ultimos 15 dias
+                    option(value=30) Ultimos 30 dias
+                    option(value=60) Ultimos 60 dias
 
+    else
+        div(class="d-flex flex-row mt-3")
+            div(class="col-8 text-start p-1 text-dark")
+                p #{name}
+        
+            div(class="col-4 text-start p-1 text-dark")
+                select(class="form-select" aria-label="Default select" id="dias")
+                    option(value=7) 7 dias
+                    option(value=15) 15 dias
+                    option(value=30) 30 dias
+                    option(value=60) 60 dias
+
+    div(class="d-flex flex-row mt-3")
+        div(class="col-4 text-center p-1 text-dark box-values m-1")
+            p Total de Recebimentos
+            p &nbsp;
+            p &nbsp;
+            ul(class="list-inline")
+                li(class="list-inline-item") R$
+                li(class="list-inline-item value-spotlight") #{total}
             
+        div(class="col-4 text-center p-1 text-dark box-values m-1")
+            p Ticket Médio
+            p &nbsp;
+            p &nbsp;
+            ul(class="list-inline")
+                li(class="list-inline-item") R$
+                li(class="list-inline-item value-spotlight") #{averageTicketTotal}
+
+        div(class="col-4 text-center p-1 text-dark box-values m-1")
+            p Conversão semanal
+            p &nbsp;
+            p &nbsp;
+            ul(class="list-inline")
+                li(class="list-inline-item") %
+                li(class="list-inline-item value-spotlight") #{weekConversionTotal}
+
+
+

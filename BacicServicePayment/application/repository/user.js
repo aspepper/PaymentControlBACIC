@@ -1,5 +1,8 @@
+import bcrypt from 'bcrypt';
 import userModel from '../models/user';
 import user from '../entities/user';
+import userRolesModel from '../models/userRole';
+import userRole from '../entities/userRole'
 
 class UserRepository {
 
@@ -21,8 +24,7 @@ class UserRepository {
             Mobile: rec.mobile
         }).then(function (record) {
             if (record) {
-                console.log(record);
-                return record["dataValues"]["Id"];
+                return record.dataValues.Id;
             } else {
                 console.log('Error in insert new record');
             }
@@ -32,7 +34,6 @@ class UserRepository {
             console.log(err);
             return null;
         }); 
-
         return Id;
     }
 
@@ -42,20 +43,21 @@ class UserRepository {
         const userFind = await userModel
                                 .findOne({ where: { userName: username } })
                                 .then(function(record){
-                                    if (record != null){
-                                        userReturn.id = record.Id;
-                                        userReturn.userName = record.UserName;
-                                        userReturn.password = record.Password;
-                                        userReturn.name = record.Name;
-                                        userReturn.document = record.Document;
-                                        userReturn.email = record.Email;
-                                        userReturn.mobile = record.Mobile;
-                                        return record;
-                                    }
-                                    return null;
+                                    return record;
                                 });
 
-        return userFind;
+        if(userFind){
+            userReturn.id = userFind.Id;
+            userReturn.userName = userFind.UserName;
+            userReturn.password = userFind.Password;
+            userReturn.name = userFind.Name;
+            userReturn.document = userFind.Document;
+            userReturn.email = userFind.Email;
+            userReturn.mobile = userFind.Mobile;
+            return userReturn;
+        }
+
+        return null;
     }
 
     async getById(userId: number): user {
@@ -81,7 +83,19 @@ class UserRepository {
     }
 
     async getAll(): userModel[] {
-        return await userModel.findAll();
+        return await userModel.findAll().then((r) => { return r; });
+    }
+
+    async getRoles(userId: number): userRole[] {
+        const roles = await userRolesModel.findAll({
+            where: {
+                UserId: userId
+            }
+        }).then( r => { return r; });
+
+        const userListRoles = roles.map( r => { return r; });
+        
+        return userListRoles;
     }
 
 }

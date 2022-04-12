@@ -7,34 +7,44 @@ import path from 'path';
 
 import routerDashboard from './application/routes/dashboard';
 import routerUser from './application/routes/user';
+import routerRevenue from './application/routes/revenue';
 import routerForward from './application/routes/forward_agent';
 
 import userRepo from './application/repository/user';
-import userRole from './application/repository/userRole';
+import userRoleRepo from './application/repository/userRole';
+import userCompanyRepo from './application/repository/userCompany';
 import userEntity from './application/entities/user';
 import userRoleEntity from './application/entities/userRole';
-import User from './application/entities/user';
+import userCompanyEntity from './application/entities/userCompany';
 
 const app = express();
 
 /* Caso não tenho o usuário admin, cria o admin com senha padrão admin */
 const userAdmin = userRepo.get('admin');
 userAdmin.then(function(found) { 
-    if (found == null) {
+    if (!found) {
         const record = new userEntity();
         record.userName = 'admin';
         record.password = 'admin';
         record.name = 'Administrator';
         record.email = 'aspepper@gmail.com';
         record.mobile = '13991206178';
-        const userId = userRepo.create(record);
 
-        if (userId != null ) {
-            const recordUR = new userRoleEntity();
-            recordUR.userId = parseInt(userId);
-            recordUR.roleId = 1; // Administrator Geral
-            userRole.create(recordUR);
-        }
+        var userCreation = userRepo.create(record);
+
+        userCreation.then(function(userId) { 
+          if (userId) {
+              var recordUR = new userRoleEntity();
+              recordUR.userId = parseInt(userId);
+              recordUR.roleId = 1; // Administrator Geral
+              userRoleRepo.create(recordUR);
+
+              var recordUC = new userCompanyEntity();
+              recordUC.userId = parseInt(userId);
+              recordUC.companyId = 1; // Empresa BASIC
+              userCompanyRepo.create(recordUC);
+          }
+        });
     }
 });
 
@@ -54,19 +64,18 @@ passport.deserializeUser(function (user, done) {
 passport.use(new LocalStrategy(
     function (username, password, done) {
         const user = userRepo.get(username);
-        user.then(function(_user) {
-            if (!_user) { return done(null, false, {"message": "Acesso não autenticado."}); }
-            bcrypt.compare(password, _user.Password, (err, isValid) => {
-              if (err) {
-                return done(null, false, err)
-              }
-              if (!isValid) {
-                return done(null, false, {message: "Acesso não autorizado"})
-              }
-              return done(null, user)
-            })
+        user.then(function(found) { 
+            if (!found) { return done(null, false, {"message": "Acesso não autenticado."}); }
+            bcrypt.compare(password, found.password, (err, isValid) => {
+                if (err) {
+                  return done(null, false, err)
+                }
+                if (!isValid) {
+                  return done(null, false, {message: "Acesso não autorizado"})
+                }
+                return done(null, found);
+            });
         });
-
     }
 ));
 
@@ -75,19 +84,18 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(session({  
   secret: 'OrdNaXel4detr4vnIYmeMaNTsRiF', //configure um segredo seu aqui,
-  resave: false,
+  resave: true,
   saveUninitialized: false,
-  cookie: { maxAge: 30 * 60 * 1000 } //30min
-}))
+  cookie: { maxAge: 30 * 60 * 1000 }, //30min
+  cookie: { secure: false }
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 // route middleware to ensure user is logged in
 function authenticationMiddleware(req, res, next) {
     let _isAuthenticated = req.isAuthenticated();
-    console.log("authenticatedMiddleware");
-    console.log(_isAuthenticated);
-
     if (req.isAuthenticated()){ return next(); }
     res.redirect("/login")
 }
@@ -97,21 +105,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.set('views', path.join(__dirname, '/application/views'));
 app.set('view engine', 'pug');
 
-//app.use("/login", routerLogin);
-
 app.get('/login', function(req, res, next) {
-    console.log("entramos no get");
     if (req.query.fail)
-    res.render('login', { title: 'Usuário', message: 'Usuário e/ou senha incorretos!' });
+    res.render('login', { title: 'Login', message: 'Usuário e/ou senha incorretos!', currentPath: '/login' });
       else
-    res.render('login', { title: 'Usuário', message: null });
+    res.render('login', { title: 'Login', message: null, currentPath: '/login' });
   });
-  
-// app.post("/login", 
-//   passport.authenticate("local", { failureRedirect: "/login"}),
-//   function (req, res) {
-//       res.redirect("/dashboard");
-// }); 
 
 app.post('/login',
   [
@@ -130,6 +129,7 @@ app.post('/login',
 app.use("/", authenticationMiddleware, routerDashboard);
 app.use("/home", authenticationMiddleware, routerDashboard);
 app.use("/dashboard", authenticationMiddleware, routerDashboard);
+app.use("/revenues", authenticationMiddleware, routerRevenue);
 app.use("/user", authenticationMiddleware, routerUser);
 app.use("/forward_agent", authenticationMiddleware, routerForward);
 
@@ -137,21 +137,6 @@ app.get("/logout", function (req, res) {
     req.logout();
     res.send("logout success!");
 });
-
-// app.use(function(req, res, next) {
-//     next(createError(404));
-// });
- 
-// // error handler
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
 
 app.listen(3000, function () {
     console.log('Node app is running on port 3000');

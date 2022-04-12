@@ -17,14 +17,16 @@ html
 
     block content
 
-      div(class="container")
+      div(class="container-fluid")
 
-        div(class="row")
+        form(action="#" method="POST")
 
-          div(class="col-3 background-color: #BFC9CA")
-            include sidebar.pug
+          div(class="row h-100")
 
-          div(class="col-9 background-color: #D0D3D4")
-            block primary
+            div(class="col-3 h-100 pl-3 pr-3 sidebar")
+              include sidebar.pug
+
+            div(class="col-9 h-100 content-pages")
+              block primary
 
     script(src='/public/assets/js/bootstrap.bundle.js')

@@ -4,8 +4,8 @@
   "description": "Sistema de Controle de Pagamentos",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./index.js"
+    "start": "nodemon ./index.js",
+    "build": "ts-node ./index.js"
   },
   "keywords": [
     "projectStructure.npm.init"
@@ -23,6 +23,7 @@
     "express-session": "^1.17.2",
     "express-validator": "^6.14.0",
     "method-override": "^3.0.0",
+    "moment": "^2.29.2",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "passport": "^0.5.2",
