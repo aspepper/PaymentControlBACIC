@@ -52,10 +52,10 @@ router.get('/', (req, res) => {
         maximumFractionDigits: 2,
       });
 
-    res.render('dashboard', 
+    res.render('charges', 
             { 
-                title: 'Dashboard', 
-                option: 1,
+                title: 'Minhas Cobranças', 
+                option: 2,
                 isAdminGeneral: global.isAdminGeneral, 
                 isAdmin: global.isAdmin, 
                 list: global.agentList, 

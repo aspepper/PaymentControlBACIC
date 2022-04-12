@@ -287,6 +287,7 @@ INSERT INTO PAYMENTS (`PaymentOptionId`,`CompanyId`,`CustomerId`,`Description`,`
 VALUES (1,3,5,'Avaliação', 100.00, 0, 1, CURRENT_TIMESTAMP);
 
 
+
 SELECT * FROM USERS;
 SELECT * FROM CUSTOMERS;
 SELECT * FROM COMPANIES;

@@ -2,6 +2,7 @@ import userRepo from '../repository/user';
 import forwardAgentRepo from '../repository/company';
 import userCompany from '../repository/userCompany';
 import dashboard from '../repository/dashboard';
+import paymentRepo from '../repository/payments';
 const express = require("express")
 
 const router=express.Router()
@@ -25,19 +26,13 @@ router.use(function getGlobalData(req, res, next){
             forwardList.then(function(list) {
                 global.agentList = list;
                 const totalPromisse = dashboard.getTotalReceived(list[0].Id, 7);
-                console.log(totalPromisse);
                 totalPromisse.then(function(total){ 
                     req.total = total; 
-                    const averageTicket = dashboard.getAverageTicket(list[0].Id, 7);
-                    console.log(averageTicket);
-                    averageTicket.then(function(averageTicketTotal){
-                        req.averageTicketTotal = averageTicketTotal; 
-                        const weekConversion = dashboard.getWeekConversion(list[0].Id, 7);
-                        console.log(weekConversion);
-                        weekConversion.then(function(weekConversionTotal){
-                            req.weekConversionTotal = weekConversionTotal; 
-                            next();
-                        });
+                    const listRecepts = paymentRepo.getRecepts(list[0].Id, 7);
+                    console.log(listRecepts);
+                    listRecepts.then(function(list){
+                        req.listRecepts = list; 
+                        next();
                     });
                 });
             });
@@ -51,18 +46,17 @@ router.get('/', (req, res) => {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
-
-    res.render('dashboard', 
+    console.log("passei pelo Yield");
+    res.render('yield', 
             { 
-                title: 'Dashboard', 
-                option: 1,
+                title: 'Meus Recebimentos', 
+                option: 3,
                 isAdminGeneral: global.isAdminGeneral, 
                 isAdmin: global.isAdmin, 
                 list: global.agentList, 
                 name: global.companyName, 
                 total: realPtBRLocale.format(req.total),
-                averageTicketTotal: realPtBRLocale.format(req.averageTicketTotal),
-                weekConversionTotal: realPtBRLocale.format(req.weekConversionTotal),
+                listRecepts: req.listRecepts
             });
 });
 

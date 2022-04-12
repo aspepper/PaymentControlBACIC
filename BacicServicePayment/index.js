@@ -8,6 +8,8 @@ import path from 'path';
 import routerDashboard from './application/routes/dashboard';
 import routerUser from './application/routes/user';
 import routerRevenue from './application/routes/revenue';
+import routerCharges from './application/routes/charges';
+import routerYield from './application/routes/yield';
 import routerForward from './application/routes/forward_agent';
 
 import userRepo from './application/repository/user';
@@ -129,6 +131,8 @@ app.post('/login',
 app.use("/", authenticationMiddleware, routerDashboard);
 app.use("/home", authenticationMiddleware, routerDashboard);
 app.use("/dashboard", authenticationMiddleware, routerDashboard);
+app.use("/charges", authenticationMiddleware, routerCharges);
+app.use("/yield", authenticationMiddleware, routerYield);
 app.use("/revenues", authenticationMiddleware, routerRevenue);
 app.use("/user", authenticationMiddleware, routerUser);
 app.use("/forward_agent", authenticationMiddleware, routerForward);

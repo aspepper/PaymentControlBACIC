@@ -57,12 +57,17 @@ html, body, form {
     background-color: #d2dcdd;
 }
 
+.text-underline-selected {
+    text-decoration: none;
+    color: rgb(63, 63, 216);
+}
+
 .content-pages {
     background-color: #ffffff;
 }
 
 .box-values {
-    background-color: rgb(166, 186, 222);
+    background-color: rgb(184, 200, 230);
 }
 
 .value-spotlight {
