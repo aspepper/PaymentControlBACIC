@@ -76,3 +76,9 @@ html, body, form {
     color: #022225;
 }
 
+/* 
+<![CDATA[ 
+   .bar { fill: steelblue; }
+   .bar:hover { fill: brown; }
+]]>
+*/
