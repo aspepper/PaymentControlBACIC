@@ -3,6 +3,9 @@ import forwardAgentRepo from '../repository/company';
 import userCompany from '../repository/userCompany';
 import dashboard from '../repository/dashboard';
 const express = require("express")
+const fs = require('fs');
+const output = require('d3node-output');
+const d3 = require('d3-node')().d3;
 
 const router=express.Router()
 
@@ -51,6 +54,13 @@ router.get('/', (req, res) => {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       });
+
+    const d3nBar = require('../');
+    const csvString = fs.readFileSync('data/data.csv').toString();
+    const data = d3.csvParse(csvString);
+    
+    // create output files
+    output('./example/output', d3nBar({ data: data }));
 
     res.render('dashboard', 
             { 
