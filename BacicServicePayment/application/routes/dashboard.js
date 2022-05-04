@@ -1,13 +1,14 @@
+import express from "express";
+import fs from 'fs';
+import output from 'd3node-output';
+
 import userRepo from '../repository/user';
 import forwardAgentRepo from '../repository/company';
 import userCompany from '../repository/userCompany';
 import dashboard from '../repository/dashboard';
-const express = require("express")
-const fs = require('fs');
-const output = require('d3node-output');
-const d3 = require('d3-node')().d3;
 
 const router=express.Router()
+const d3 = require('d3-node')().d3;
 
 global.userId = 0;
 global.isAdminGeneral = false;
